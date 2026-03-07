@@ -102,50 +102,50 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CAPT-01 | — | Pending |
-| CAPT-02 | — | Pending |
-| CAPT-03 | — | Pending |
-| CAPT-04 | — | Pending |
-| CAPT-05 | — | Pending |
-| CAPT-06 | — | Pending |
-| ELEM-01 | — | Pending |
-| ELEM-02 | — | Pending |
-| ELEM-03 | — | Pending |
-| ELEM-04 | — | Pending |
-| ELEM-05 | — | Pending |
-| VIEW-01 | — | Pending |
-| VIEW-02 | — | Pending |
-| VIEW-03 | — | Pending |
-| VIEW-04 | — | Pending |
-| PREP-01 | — | Pending |
-| PREP-02 | — | Pending |
-| PREP-03 | — | Pending |
-| AUTH-01 | — | Pending |
-| AUTH-02 | — | Pending |
-| AUTH-03 | — | Pending |
-| AUTH-04 | — | Pending |
-| OUTP-01 | — | Pending |
-| OUTP-02 | — | Pending |
-| OUTP-03 | — | Pending |
-| OUTP-04 | — | Pending |
-| OUTP-05 | — | Pending |
-| ARCH-01 | — | Pending |
-| ARCH-02 | — | Pending |
-| ARCH-03 | — | Pending |
-| ARCH-04 | — | Pending |
-| ARCH-05 | — | Pending |
-| QUAL-01 | — | Pending |
-| QUAL-02 | — | Pending |
-| QUAL-03 | — | Pending |
-| QUAL-04 | — | Pending |
-| QUAL-05 | — | Pending |
-| QUAL-06 | — | Pending |
+| CAPT-01 | Phase 1 | Pending |
+| CAPT-02 | Phase 1 | Pending |
+| CAPT-03 | Phase 1 | Pending |
+| CAPT-04 | Phase 1 | Pending |
+| CAPT-05 | Phase 1 | Pending |
+| CAPT-06 | Phase 1 | Pending |
+| VIEW-01 | Phase 1 | Pending |
+| VIEW-02 | Phase 1 | Pending |
+| ARCH-01 | Phase 1 | Pending |
+| ARCH-02 | Phase 1 | Pending |
+| OUTP-01 | Phase 1 | Pending |
+| OUTP-02 | Phase 1 | Pending |
+| QUAL-03 | Phase 1 | Pending |
+| QUAL-04 | Phase 1 | Pending |
+| QUAL-05 | Phase 1 | Pending |
+| ELEM-01 | Phase 2 | Pending |
+| ELEM-02 | Phase 2 | Pending |
+| ELEM-03 | Phase 2 | Pending |
+| ELEM-04 | Phase 2 | Pending |
+| ELEM-05 | Phase 2 | Pending |
+| PREP-01 | Phase 2 | Pending |
+| PREP-02 | Phase 2 | Pending |
+| PREP-03 | Phase 2 | Pending |
+| AUTH-01 | Phase 3 | Pending |
+| AUTH-02 | Phase 3 | Pending |
+| AUTH-03 | Phase 3 | Pending |
+| AUTH-04 | Phase 3 | Pending |
+| ARCH-03 | Phase 4 | Pending |
+| VIEW-03 | Phase 4 | Pending |
+| VIEW-04 | Phase 4 | Pending |
+| OUTP-03 | Phase 4 | Pending |
+| OUTP-04 | Phase 4 | Pending |
+| OUTP-05 | Phase 4 | Pending |
+| ARCH-04 | Phase 5 | Pending |
+| ARCH-05 | Phase 5 | Pending |
+| QUAL-01 | Phase 5 | Pending |
+| QUAL-02 | Phase 5 | Pending |
+| QUAL-06 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 38 total
-- Mapped to phases: 0
-- Unmapped: 38
+- Mapped to phases: 38
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-07*
-*Last updated: 2026-03-07 after initial definition*
+*Last updated: 2026-03-07 after roadmap creation*
