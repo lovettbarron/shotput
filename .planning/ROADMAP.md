@@ -46,11 +46,11 @@ Plans:
   2. User can describe an element in natural language, and the inspect_page tool returns enough DOM context for Claude to identify the correct selector
   3. User can inject custom CSS or JavaScript before capture to modify page appearance (e.g., hide cookie banners, dismiss modals)
   4. User can capture an element with a transparent background instead of a white fill
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [ ] 02-01-PLAN.md — Element capture with padding/transparency + page preparation (CSS/JS injection, element hiding)
+- [ ] 02-02-PLAN.md — DOM inspection tool (shotput_inspect) for Claude-assisted selector discovery
 
 ### Phase 3: Authentication
 **Goal**: Users can capture screenshots of pages behind login walls using interactive browser authentication or programmatic session injection
