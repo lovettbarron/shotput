@@ -3,3 +3,6 @@ dist/
 *.png
 *.jpeg
 *.jpg
+!demo/*.png
+!demo/*.jpeg
+!demo/*.jpg

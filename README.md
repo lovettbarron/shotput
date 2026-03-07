@@ -4,6 +4,17 @@ Screenshot capture tool for Claude Code. Launches headless Chromium to capture f
 
 Built as an MCP server, Shotput integrates directly into Claude Code (and any MCP-compatible client) so you can capture publication-ready screenshots from your AI workflow.
 
+<table>
+<tr>
+<td align="center"><strong>Prompt</strong></td>
+<td align="center"><strong>Captured Image</strong></td>
+</tr>
+<tr>
+<td><img src="demo/prompt.png" width="400" /></td>
+<td><img src="demo/etyde-portfolio.png" width="400" /></td>
+</tr>
+</table>
+
 ## Features
 
 ### Core Capture (`shotput_capture`)
