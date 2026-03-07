@@ -25,17 +25,17 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Depends on**: Nothing (first phase)
 **Requirements**: CAPT-01, CAPT-02, CAPT-03, CAPT-04, CAPT-05, CAPT-06, VIEW-01, VIEW-02, ARCH-01, ARCH-02, OUTP-01, OUTP-02, QUAL-03, QUAL-04, QUAL-05
 **Success Criteria** (what must be TRUE):
-  1. User can call `shotput_capture_screenshot` via an MCP client and receive a full-page PNG or JPEG screenshot of any reachable URL
+  1. User can call `shotput_capture` via an MCP client and receive a full-page PNG or JPEG screenshot of any reachable URL
   2. User can set viewport dimensions and device scale factor and the resulting screenshot reflects those settings
   3. User can specify output directory and filename, and the file appears at the expected path
   4. Browser processes are cleaned up after captures complete -- no zombie Chromium processes remain after the MCP server shuts down
   5. Project has a permissive license file and all dependencies pass a license compatibility check
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
-- [ ] 01-03: TBD
+- [ ] 01-01-PLAN.md — Project foundation: dependencies, build config, license, types, test scaffolds
+- [ ] 01-02-PLAN.md — Capture engine: browser lifecycle, auto-scroll, output handling, capture pipeline
+- [ ] 01-03-PLAN.md — MCP server: tool registration, stdio transport, response formatting
 
 ### Phase 2: Element Targeting
 **Goal**: Users can capture screenshots of specific DOM elements using CSS selectors or natural language descriptions, with page preparation controls
@@ -105,7 +105,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Core Capture Engine | 0/3 | Not started | - |
+| 1. Core Capture Engine | 0/3 | Planning complete | - |
 | 2. Element Targeting | 0/2 | Not started | - |
 | 3. Authentication | 0/2 | Not started | - |
 | 4. Skill Layer + Display Polish | 0/2 | Not started | - |
