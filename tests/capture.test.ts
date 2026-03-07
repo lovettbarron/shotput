@@ -8,6 +8,7 @@ import path from "node:path";
 
 const TEST_PAGE = `file://${path.resolve("tests/fixtures/test-page.html")}`;
 const LAZY_PAGE = `file://${path.resolve("tests/fixtures/lazy-page.html")}`;
+const ELEMENT_PAGE = `file://${path.resolve("tests/fixtures/element-page.html")}`;
 
 function makeParams(overrides: Partial<CaptureParams> = {}): CaptureParams {
   return {
@@ -190,5 +191,117 @@ describe("capture", () => {
     // Round-trip check
     const decoded = Buffer.from(b64, "base64");
     expect(decoded.equals(result.buffer)).toBe(true);
+  });
+});
+
+describe("element capture", () => {
+  test("captures specific element by CSS selector", async () => {
+    const dir = await freshTmpDir();
+    // Full viewport capture for comparison
+    const fullResult = await captureScreenshot(
+      makeParams({ url: ELEMENT_PAGE, outputDir: dir })
+    );
+    const dir2 = await freshTmpDir();
+    // Element capture should be smaller than full viewport
+    const elementResult = await captureScreenshot(
+      makeParams({ url: ELEMENT_PAGE, selector: "#target-box", outputDir: dir2 })
+    );
+    expect(elementResult.buffer.length).toBeGreaterThan(0);
+    expect(elementResult.buffer.length).toBeLessThan(fullResult.buffer.length);
+  });
+
+  test("element capture with padding produces larger image", async () => {
+    const dir1 = await freshTmpDir();
+    const noPadding = await captureScreenshot(
+      makeParams({ url: ELEMENT_PAGE, selector: "#target-box", padding: 0, outputDir: dir1 })
+    );
+    const dir2 = await freshTmpDir();
+    const withPadding = await captureScreenshot(
+      makeParams({ url: ELEMENT_PAGE, selector: "#target-box", padding: 20, outputDir: dir2 })
+    );
+    expect(withPadding.buffer.length).toBeGreaterThan(noPadding.buffer.length);
+  });
+
+  test("omitBackground produces PNG with transparency", async () => {
+    const dir1 = await freshTmpDir();
+    const opaqueResult = await captureScreenshot(
+      makeParams({ url: ELEMENT_PAGE, selector: "#target-box", format: "png", outputDir: dir1 })
+    );
+    const dir2 = await freshTmpDir();
+    const transparentResult = await captureScreenshot(
+      makeParams({ url: ELEMENT_PAGE, selector: "#target-box", format: "png", omitBackground: true, outputDir: dir2 })
+    );
+    // Both should be valid PNGs
+    expect(transparentResult.buffer[0]).toBe(0x89);
+    expect(transparentResult.buffer[1]).toBe(0x50);
+    expect(transparentResult.buffer[2]).toBe(0x4e);
+    expect(transparentResult.buffer[3]).toBe(0x47);
+    // Buffers should differ (transparency vs opaque)
+    expect(transparentResult.buffer.equals(opaqueResult.buffer)).toBe(false);
+  });
+
+  test("omitBackground with JPEG format adds warning", async () => {
+    const dir = await freshTmpDir();
+    const result = await captureScreenshot(
+      makeParams({ url: ELEMENT_PAGE, selector: "#target-box", format: "jpeg", omitBackground: true, outputDir: dir })
+    );
+    // Should have a warning about JPEG + transparency
+    expect(result.warning).toBeDefined();
+    expect(result.warning).toMatch(/png/i);
+    // Should produce PNG despite requesting JPEG
+    expect(result.format).toBe("png");
+  });
+
+  test("inject CSS changes page appearance", async () => {
+    const dir1 = await freshTmpDir();
+    const withoutCSS = await captureScreenshot(
+      makeParams({ url: ELEMENT_PAGE, outputDir: dir1 })
+    );
+    const dir2 = await freshTmpDir();
+    const withCSS = await captureScreenshot(
+      makeParams({ url: ELEMENT_PAGE, injectCSS: "body { background: red !important; }", outputDir: dir2 })
+    );
+    // Buffers should differ since background changed
+    expect(withCSS.buffer.equals(withoutCSS.buffer)).toBe(false);
+  });
+
+  test("inject JS modifies page content", async () => {
+    const dir1 = await freshTmpDir();
+    const withoutJS = await captureScreenshot(
+      makeParams({ url: ELEMENT_PAGE, selector: "#target-box", outputDir: dir1 })
+    );
+    const dir2 = await freshTmpDir();
+    const withJS = await captureScreenshot(
+      makeParams({
+        url: ELEMENT_PAGE,
+        selector: "#target-box",
+        injectJS: "document.getElementById('target-box').textContent = 'INJECTED'",
+        outputDir: dir2,
+      })
+    );
+    // Buffers should differ since content changed
+    expect(withJS.buffer.equals(withoutJS.buffer)).toBe(false);
+  });
+
+  test("hideSelectors hides elements", async () => {
+    const dir1 = await freshTmpDir();
+    const withBanner = await captureScreenshot(
+      makeParams({ url: ELEMENT_PAGE, outputDir: dir1 })
+    );
+    const dir2 = await freshTmpDir();
+    const withoutBanner = await captureScreenshot(
+      makeParams({ url: ELEMENT_PAGE, hideSelectors: ["#cookie-banner"], outputDir: dir2 })
+    );
+    // Buffers should differ since cookie banner is hidden
+    expect(withoutBanner.buffer.equals(withBanner.buffer)).toBe(false);
+  });
+
+  test("selector not found throws error", async () => {
+    const dir = await freshTmpDir();
+    await expect(
+      captureScreenshot(
+        makeParams({ url: ELEMENT_PAGE, selector: "#nonexistent-element", outputDir: dir })
+      )
+    ).rejects.toThrow(/nonexistent-element/);
   });
 });

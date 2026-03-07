@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Element Targeting Test Page</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; background: #FFFFFF; }
+    .container { padding: 40px; }
+    h1 { color: #333; margin-bottom: 20px; }
+
+    #target-box {
+      width: 200px;
+      height: 200px;
+      background-color: #FF6600;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    #secondary-box {
+      width: 100px;
+      height: 100px;
+      background-color: #3366CC;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    #cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #333333;
+      color: #FFFFFF;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 14px;
+      z-index: 9999;
+    }
+
+    .nested-section {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #DDD;
+    }
+
+    .nested-item {
+      padding: 5px;
+      margin: 5px 0;
+      background: #F5F5F5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" data-testid="container">
+    <h1 data-testid="heading">Element Targeting Test Page</h1>
+    <div id="target-box" data-testid="target-box">Target Box</div>
+    <div id="secondary-box" data-testid="secondary-box">Secondary</div>
+
+    <div class="nested-section" data-testid="nested-section">
+      <h2>Nested Content</h2>
+      <div class="nested-item" data-testid="nested-item-1">Item 1</div>
+      <div class="nested-item" data-testid="nested-item-2">Item 2</div>
+      <div class="nested-item" data-testid="nested-item-3">Item 3</div>
+    </div>
+  </div>
+
+  <div id="cookie-banner" data-testid="cookie-banner">
+    Cookie Banner - Accept cookies to continue
+  </div>
+</body>
+</html>

@@ -13,6 +13,12 @@ export interface CaptureParams {
   wait: WaitStrategy | number;
   autoScroll: boolean;
   timeout: number;
+  selector?: string;
+  padding?: number;
+  omitBackground?: boolean;
+  injectCSS?: string;
+  injectJS?: string;
+  hideSelectors?: string[];
 }
 
 export interface CaptureResult {
