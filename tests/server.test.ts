@@ -92,6 +92,75 @@ describe("MCP server", () => {
     await server.close();
   });
 
+  test("shotput_inspect tool is registered and callable", async () => {
+    const server = createServer();
+    const client = new Client({ name: "test-client", version: "1.0.0" });
+
+    const [clientTransport, serverTransport] =
+      InMemoryTransport.createLinkedPair();
+
+    await Promise.all([
+      server.connect(serverTransport),
+      client.connect(clientTransport),
+    ]);
+
+    const tools = await client.listTools();
+    const inspectTool = tools.tools.find((t) => t.name === "shotput_inspect");
+    expect(inspectTool).toBeDefined();
+    expect(inspectTool!.description).toContain("Inspect");
+
+    // Verify schema has url as required
+    const schema = inspectTool!.inputSchema;
+    expect(schema.required).toContain("url");
+
+    await client.close();
+    await server.close();
+  });
+
+  test("shotput_inspect returns DOM summary as text content", async () => {
+    const server = createServer();
+    const client = new Client({ name: "test-client", version: "1.0.0" });
+
+    const [clientTransport, serverTransport] =
+      InMemoryTransport.createLinkedPair();
+
+    await Promise.all([
+      server.connect(serverTransport),
+      client.connect(clientTransport),
+    ]);
+
+    const fixtureUrl = `file://${path.resolve("tests/fixtures/element-page.html")}`;
+    const result = await client.callTool({
+      name: "shotput_inspect",
+      arguments: { url: fixtureUrl },
+    });
+
+    const content = result.content as Array<{
+      type: string;
+      text?: string;
+    }>;
+
+    // Should have page title text
+    const pageText = content.find(
+      (c) => c.type === "text" && c.text?.includes("Page:")
+    );
+    expect(pageText).toBeDefined();
+
+    // Should have DOM summary as JSON
+    const domText = content.find(
+      (c) => c.type === "text" && c.text?.includes("DOM Summary:")
+    );
+    expect(domText).toBeDefined();
+
+    // Parse the JSON portion
+    const jsonStr = domText!.text!.replace("DOM Summary:\n", "");
+    const parsed = JSON.parse(jsonStr);
+    expect(parsed.tag).toBe("body");
+
+    await client.close();
+    await server.close();
+  });
+
   test("no console.log in production source files", () => {
     const result = execSync(
       'grep -r "console\\.log" src/ || echo "__NONE__"',
