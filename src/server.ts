@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { captureScreenshot } from "./capture.js";
+import { inspectPage } from "./inspect.js";
 import { registerCleanup } from "./browser.js";
 import type { CaptureParams } from "./types.js";
 
@@ -93,6 +94,58 @@ export function createServer(): McpServer {
         content.push({
           type: "text",
           text: "Image too large for inline display. View the saved file.",
+        });
+      }
+
+      return { content };
+    }
+  );
+
+  server.tool(
+    "shotput_inspect",
+    "Inspect a web page's DOM structure to identify CSS selectors for element targeting. Returns structured DOM summary and accessibility tree. Use this before shotput_capture when you need to find the right CSS selector for an element.",
+    {
+      url: z.string().url(),
+      width: z.number().int().positive().default(1280),
+      height: z.number().int().positive().default(720),
+      wait: z
+        .union([
+          z.enum(["networkidle", "domcontentloaded", "load"]),
+          z.number().positive(),
+        ])
+        .default("networkidle"),
+      timeout: z.number().positive().default(30000),
+    },
+    async (params) => {
+      const result = await inspectPage({
+        url: params.url,
+        width: params.width,
+        height: params.height,
+        wait: params.wait,
+        timeout: params.timeout,
+      });
+
+      const content: Array<{ type: "text"; text: string }> = [];
+
+      content.push({
+        type: "text",
+        text: `Page: ${result.title} (${result.url})`,
+      });
+
+      content.push({
+        type: "text",
+        text: `Aria Snapshot:\n${result.ariaSnapshot}`,
+      });
+
+      content.push({
+        type: "text",
+        text: `DOM Summary:\n${JSON.stringify(result.domSummary, null, 2)}`,
+      });
+
+      if (result.truncated) {
+        content.push({
+          type: "text",
+          text: "Note: DOM summary was truncated. Large page - not all elements shown.",
         });
       }
 
