@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shotput Lazy Load Test Page</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; background: #FFFFFF; }
+    .section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border-bottom: 2px solid #EEE;
+      padding: 20px;
+    }
+    .section h2 { margin-bottom: 20px; color: #333; }
+    img {
+      width: 300px;
+      height: 200px;
+      border: 1px solid #CCC;
+    }
+  </style>
+</head>
+<body>
+  <div class="section" data-testid="section-1">
+    <h2>Section 1</h2>
+    <!-- 1x1 red pixel PNG as data URI -->
+    <img
+      loading="lazy"
+      data-testid="lazy-img-1"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg=="
+      alt="Lazy image 1"
+    >
+  </div>
+
+  <div class="section" data-testid="section-2">
+    <h2>Section 2</h2>
+    <!-- 1x1 green pixel PNG as data URI -->
+    <img
+      loading="lazy"
+      data-testid="lazy-img-2"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+      alt="Lazy image 2"
+    >
+  </div>
+
+  <div class="section" data-testid="section-3">
+    <h2>Section 3</h2>
+    <!-- 1x1 blue pixel PNG as data URI -->
+    <img
+      loading="lazy"
+      data-testid="lazy-img-3"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPj/HwADBwIAMCbHYQAAAABJRU5ErkJggg=="
+      alt="Lazy image 3"
+    >
+  </div>
+
+  <div class="section" data-testid="section-4">
+    <h2>Section 4</h2>
+    <!-- 1x1 yellow pixel PNG as data URI -->
+    <img
+      loading="lazy"
+      data-testid="lazy-img-4"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/58BAQAFhAJAf2MNkwAAAABJRU5ErkJggg=="
+      alt="Lazy image 4"
+    >
+  </div>
+</body>
+</html>
