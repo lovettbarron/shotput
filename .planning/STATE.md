@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-03-07T20:04:47.396Z"
-last_activity: 2026-03-07 -- Roadmap created
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-03-07T20:10:13.960Z"
+last_activity: 2026-03-07 -- Completed 01-01 project foundation
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
-  percent: 0
+  completed_plans: 2
+  percent: 67
 ---
 
 # Project State
@@ -26,28 +26,28 @@ See: .planning/PROJECT.md (updated 2026-03-07)
 ## Current Position
 
 Phase: 1 of 5 (Core Capture Engine)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: Executing
-Last activity: 2026-03-07 -- Completed 01-01 project foundation
+Last activity: 2026-03-07 -- Completed 01-02 core capture engine
 
-Progress: [███░░░░░░░] 33%
+Progress: [███████░░░] 67%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 2min
-- Total execution time: 0.03 hours
+- Total plans completed: 2
+- Average duration: 2.5min
+- Total execution time: 0.08 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-core-capture-engine | 1 | 2min | 2min |
+| 01-core-capture-engine | 2 | 5min | 2.5min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (2min)
-- Trend: Starting
+- Last 5 plans: 01-01 (2min), 01-02 (3min)
+- Trend: Steady
 
 *Updated after each plan completion*
 
@@ -64,6 +64,8 @@ Recent decisions affecting current work:
 - [Roadmap]: Phases 2 and 3 can run in parallel (both depend on Phase 1 only)
 - [01-01]: Extended license-check allowlist to include CC-BY-3.0 and other permissive licenses for transitive devDependencies
 - [01-01]: Playwright marked external in tsup -- confirmed research concern resolved
+- [Phase 01-02]: CaptureResult width/height returns viewport dimensions regardless of scale factor
+- [Phase 01-02]: Auto-scroll networkidle wait uses 5s timeout with silent catch
 
 ### Pending Todos
 
@@ -76,6 +78,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-07T20:03:55Z
-Stopped at: Completed 01-01-PLAN.md
-Resume file: .planning/phases/01-core-capture-engine/01-01-SUMMARY.md
+Last session: 2026-03-07T20:10:13.958Z
+Stopped at: Completed 01-02-PLAN.md
+Resume file: None

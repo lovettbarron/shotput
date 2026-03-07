@@ -30,7 +30,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. User can specify output directory and filename, and the file appears at the expected path
   4. Browser processes are cleaned up after captures complete -- no zombie Chromium processes remain after the MCP server shuts down
   5. Project has a permissive license file and all dependencies pass a license compatibility check
-**Plans:** 1/3 plans executed
+**Plans:** 2/3 plans executed
 
 Plans:
 - [ ] 01-01-PLAN.md — Project foundation: dependencies, build config, license, types, test scaffolds
@@ -105,7 +105,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Core Capture Engine | 1/3 | In Progress|  |
+| 1. Core Capture Engine | 2/3 | In Progress|  |
 | 2. Element Targeting | 0/2 | Not started | - |
 | 3. Authentication | 0/2 | Not started | - |
 | 4. Skill Layer + Display Polish | 0/2 | Not started | - |

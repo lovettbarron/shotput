@@ -7,12 +7,12 @@
 
 ### Core Capture
 
-- [ ] **CAPT-01**: User can capture a full-page screenshot of any URL (local or internet), including content below the fold
-- [ ] **CAPT-02**: User can capture a viewport-only screenshot showing only visible content at specified dimensions
-- [ ] **CAPT-03**: User can save screenshots as PNG (lossless) or JPEG (lossy) format
-- [ ] **CAPT-04**: User can control JPEG compression quality (0-100)
-- [ ] **CAPT-05**: Tool scrolls through page to trigger lazy-loaded content before capturing full-page screenshots
-- [ ] **CAPT-06**: Tool waits for page load and network idle before capturing, with configurable wait strategies
+- [x] **CAPT-01**: User can capture a full-page screenshot of any URL (local or internet), including content below the fold
+- [x] **CAPT-02**: User can capture a viewport-only screenshot showing only visible content at specified dimensions
+- [x] **CAPT-03**: User can save screenshots as PNG (lossless) or JPEG (lossy) format
+- [x] **CAPT-04**: User can control JPEG compression quality (0-100)
+- [x] **CAPT-05**: Tool scrolls through page to trigger lazy-loaded content before capturing full-page screenshots
+- [x] **CAPT-06**: Tool waits for page load and network idle before capturing, with configurable wait strategies
 
 ### Element Targeting
 
@@ -24,8 +24,8 @@
 
 ### Viewport & Display
 
-- [ ] **VIEW-01**: User can set custom viewport width and height for captures
-- [ ] **VIEW-02**: User can set device scale factor (1x, 2x, 3x) for HiDPI/retina-quality captures
+- [x] **VIEW-01**: User can set custom viewport width and height for captures
+- [x] **VIEW-02**: User can set device scale factor (1x, 2x, 3x) for HiDPI/retina-quality captures
 - [ ] **VIEW-03**: User can toggle dark or light mode (prefers-color-scheme) before capture
 - [ ] **VIEW-04**: User can select from named device presets (e.g., "iPhone 15", "iPad Pro") that set viewport, scale factor, and user agent
 
@@ -44,8 +44,8 @@
 
 ### Output & Organization
 
-- [ ] **OUTP-01**: User can specify a custom output directory for screenshots
-- [ ] **OUTP-02**: User can specify a custom filename for individual captures
+- [x] **OUTP-01**: User can specify a custom output directory for screenshots
+- [x] **OUTP-02**: User can specify a custom filename for individual captures
 - [ ] **OUTP-03**: Screenshots are organized by default into folders by site domain and page path with human-readable names
 - [ ] **OUTP-04**: Screenshot filenames include timestamps by default for versioning
 - [ ] **OUTP-05**: User can run batch captures from a YAML or JSON configuration file specifying multiple URLs, viewports, and selectors
@@ -53,7 +53,7 @@
 ### Architecture & Integration
 
 - [ ] **ARCH-01**: MCP server exposes screenshot capture functionality as MCP tools using stdio transport
-- [ ] **ARCH-02**: MCP server manages Chromium browser lifecycle (launch, reuse, cleanup) with no zombie processes
+- [x] **ARCH-02**: MCP server manages Chromium browser lifecycle (launch, reuse, cleanup) with no zombie processes
 - [ ] **ARCH-03**: Claude Code skill (SKILL.md) orchestrates MCP tools with natural language interface
 - [ ] **ARCH-04**: MCP server is fully functional standalone without the skill layer (for opencode and other MCP clients)
 - [ ] **ARCH-05**: opencode can use the MCP server with appropriate configuration documentation
@@ -102,18 +102,18 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CAPT-01 | Phase 1 | Pending |
-| CAPT-02 | Phase 1 | Pending |
-| CAPT-03 | Phase 1 | Pending |
-| CAPT-04 | Phase 1 | Pending |
-| CAPT-05 | Phase 1 | Pending |
-| CAPT-06 | Phase 1 | Pending |
-| VIEW-01 | Phase 1 | Pending |
-| VIEW-02 | Phase 1 | Pending |
+| CAPT-01 | Phase 1 | Complete |
+| CAPT-02 | Phase 1 | Complete |
+| CAPT-03 | Phase 1 | Complete |
+| CAPT-04 | Phase 1 | Complete |
+| CAPT-05 | Phase 1 | Complete |
+| CAPT-06 | Phase 1 | Complete |
+| VIEW-01 | Phase 1 | Complete |
+| VIEW-02 | Phase 1 | Complete |
 | ARCH-01 | Phase 1 | Pending |
-| ARCH-02 | Phase 1 | Pending |
-| OUTP-01 | Phase 1 | Pending |
-| OUTP-02 | Phase 1 | Pending |
+| ARCH-02 | Phase 1 | Complete |
+| OUTP-01 | Phase 1 | Complete |
+| OUTP-02 | Phase 1 | Complete |
 | QUAL-03 | Phase 1 | Complete |
 | QUAL-04 | Phase 1 | Complete |
 | QUAL-05 | Phase 1 | Complete |
