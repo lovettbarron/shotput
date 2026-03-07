@@ -16,10 +16,10 @@
 
 ### Element Targeting
 
-- [ ] **ELEM-01**: User can target a specific DOM element by CSS selector for screenshot capture
+- [x] **ELEM-01**: User can target a specific DOM element by CSS selector for screenshot capture
 - [ ] **ELEM-02**: User can describe an element in natural language and Claude identifies the correct CSS selector from the page DOM
-- [ ] **ELEM-03**: User can specify padding (in pixels) around a targeted element's bounding box
-- [ ] **ELEM-04**: User can capture an element with a transparent background (no white fill behind the element)
+- [x] **ELEM-03**: User can specify padding (in pixels) around a targeted element's bounding box
+- [x] **ELEM-04**: User can capture an element with a transparent background (no white fill behind the element)
 - [ ] **ELEM-05**: MCP server provides a page inspection tool that returns a structured DOM summary for Claude to reason about selectors
 
 ### Viewport & Display
@@ -31,9 +31,9 @@
 
 ### Page Preparation
 
-- [ ] **PREP-01**: User can inject custom CSS before capture (e.g., hide cookie banners, override styles)
-- [ ] **PREP-02**: User can inject custom JavaScript before capture (e.g., dismiss modals, set state)
-- [ ] **PREP-03**: User can hide or remove specific elements by CSS selector before capture
+- [x] **PREP-01**: User can inject custom CSS before capture (e.g., hide cookie banners, override styles)
+- [x] **PREP-02**: User can inject custom JavaScript before capture (e.g., dismiss modals, set state)
+- [x] **PREP-03**: User can hide or remove specific elements by CSS selector before capture
 
 ### Authentication
 
@@ -117,14 +117,14 @@
 | QUAL-03 | Phase 1 | Complete |
 | QUAL-04 | Phase 1 | Complete |
 | QUAL-05 | Phase 1 | Complete |
-| ELEM-01 | Phase 2 | Pending |
+| ELEM-01 | Phase 2 | Complete |
 | ELEM-02 | Phase 2 | Pending |
-| ELEM-03 | Phase 2 | Pending |
-| ELEM-04 | Phase 2 | Pending |
+| ELEM-03 | Phase 2 | Complete |
+| ELEM-04 | Phase 2 | Complete |
 | ELEM-05 | Phase 2 | Pending |
-| PREP-01 | Phase 2 | Pending |
-| PREP-02 | Phase 2 | Pending |
-| PREP-03 | Phase 2 | Pending |
+| PREP-01 | Phase 2 | Complete |
+| PREP-02 | Phase 2 | Complete |
+| PREP-03 | Phase 2 | Complete |
 | AUTH-01 | Phase 3 | Pending |
 | AUTH-02 | Phase 3 | Pending |
 | AUTH-03 | Phase 3 | Pending |

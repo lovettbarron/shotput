@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Completed 01-03-PLAN.md (Phase 1 complete)
-last_updated: "2026-03-07T20:17:41.731Z"
-last_activity: 2026-03-07 -- Completed 01-03 MCP server integration
+status: in-progress
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-03-07T21:00:30.000Z"
+last_activity: 2026-03-07 -- Completed 02-01 element capture and page preparation
 progress:
   total_phases: 5
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_plans: 4
+  completed_plans: 4
   percent: 100
 ---
 
@@ -21,32 +21,33 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-07)
 
 **Core value:** Capture precise, publication-ready screenshots of any web page or DOM element on command, with zero external service dependencies.
-**Current focus:** Phase 1: Core Capture Engine
+**Current focus:** Phase 2: Element Targeting
 
 ## Current Position
 
-Phase: 1 of 5 (Core Capture Engine) -- COMPLETE
-Plan: 3 of 3 in current phase
-Status: Phase 1 Complete
-Last activity: 2026-03-07 -- Completed 01-03 MCP server integration
+Phase: 2 of 5 (Element Targeting) -- IN PROGRESS
+Plan: 1 of 2 in current phase
+Status: Plan 02-01 complete
+Last activity: 2026-03-07 -- Completed 02-01 element capture and page preparation
 
-Progress: [██████████] 100% (Phase 1)
+Progress: [█████░░░░░] 50% (Phase 2)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 2.3min
-- Total execution time: 0.12 hours
+- Total plans completed: 4
+- Average duration: 2.6min
+- Total execution time: 0.18 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-core-capture-engine | 3 | 7min | 2.3min |
+| 02-element-targeting | 1 | 4min | 4min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (2min), 01-02 (3min), 01-03 (2min)
+- Last 5 plans: 01-01 (2min), 01-02 (3min), 01-03 (2min), 02-01 (4min)
 - Trend: Steady
 
 *Updated after each plan completion*
@@ -68,6 +69,9 @@ Recent decisions affecting current work:
 - [Phase 01-02]: Auto-scroll networkidle wait uses 5s timeout with silent catch
 - [Phase 01-03]: 750KB threshold for inline image inclusion in MCP response
 - [Phase 01-03]: registerCleanup() called inside createServer() for browser lifecycle
+- [02-01]: omitBackground + JPEG auto-switches to PNG with warning
+- [02-01]: preparePage order: hide elements CSS, then inject CSS, then execute JS
+- [02-01]: Element capture: locator.screenshot (no padding) vs page.screenshot+clip (with padding)
 
 ### Pending Todos
 
@@ -80,6 +84,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-07T20:13:32Z
-Stopped at: Completed 01-03-PLAN.md (Phase 1 complete)
+Last session: 2026-03-07T20:56:23Z
+Stopped at: Completed 02-01-PLAN.md
 Resume file: None
