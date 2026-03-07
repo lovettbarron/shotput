@@ -62,9 +62,9 @@
 
 - [ ] **QUAL-01**: Full test suite covers all capture modes, element targeting, auth flows, and edge cases
 - [ ] **QUAL-02**: Comprehensive documentation covers installation, Claude Code integration, MCP server usage, and all features
-- [ ] **QUAL-03**: Project uses MIT license (permissive, open source)
-- [ ] **QUAL-04**: All dependencies use licenses compatible with MIT (no GPL, AGPL, or restrictive licenses)
-- [ ] **QUAL-05**: No bundled fonts or assets with restrictive licenses
+- [x] **QUAL-03**: Project uses MIT license (permissive, open source)
+- [x] **QUAL-04**: All dependencies use licenses compatible with MIT (no GPL, AGPL, or restrictive licenses)
+- [x] **QUAL-05**: No bundled fonts or assets with restrictive licenses
 - [ ] **QUAL-06**: README includes clear setup instructions, examples, and troubleshooting guide
 
 ## v2 Requirements
@@ -114,9 +114,9 @@
 | ARCH-02 | Phase 1 | Pending |
 | OUTP-01 | Phase 1 | Pending |
 | OUTP-02 | Phase 1 | Pending |
-| QUAL-03 | Phase 1 | Pending |
-| QUAL-04 | Phase 1 | Pending |
-| QUAL-05 | Phase 1 | Pending |
+| QUAL-03 | Phase 1 | Complete |
+| QUAL-04 | Phase 1 | Complete |
+| QUAL-05 | Phase 1 | Complete |
 | ELEM-01 | Phase 2 | Pending |
 | ELEM-02 | Phase 2 | Pending |
 | ELEM-03 | Phase 2 | Pending |
