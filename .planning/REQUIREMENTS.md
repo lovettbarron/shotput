@@ -52,7 +52,7 @@
 
 ### Architecture & Integration
 
-- [ ] **ARCH-01**: MCP server exposes screenshot capture functionality as MCP tools using stdio transport
+- [x] **ARCH-01**: MCP server exposes screenshot capture functionality as MCP tools using stdio transport
 - [x] **ARCH-02**: MCP server manages Chromium browser lifecycle (launch, reuse, cleanup) with no zombie processes
 - [ ] **ARCH-03**: Claude Code skill (SKILL.md) orchestrates MCP tools with natural language interface
 - [ ] **ARCH-04**: MCP server is fully functional standalone without the skill layer (for opencode and other MCP clients)
@@ -110,7 +110,7 @@
 | CAPT-06 | Phase 1 | Complete |
 | VIEW-01 | Phase 1 | Complete |
 | VIEW-02 | Phase 1 | Complete |
-| ARCH-01 | Phase 1 | Pending |
+| ARCH-01 | Phase 1 | Complete |
 | ARCH-02 | Phase 1 | Complete |
 | OUTP-01 | Phase 1 | Complete |
 | OUTP-02 | Phase 1 | Complete |
