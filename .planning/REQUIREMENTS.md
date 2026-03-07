@@ -17,10 +17,10 @@
 ### Element Targeting
 
 - [x] **ELEM-01**: User can target a specific DOM element by CSS selector for screenshot capture
-- [ ] **ELEM-02**: User can describe an element in natural language and Claude identifies the correct CSS selector from the page DOM
+- [x] **ELEM-02**: User can describe an element in natural language and Claude identifies the correct CSS selector from the page DOM
 - [x] **ELEM-03**: User can specify padding (in pixels) around a targeted element's bounding box
 - [x] **ELEM-04**: User can capture an element with a transparent background (no white fill behind the element)
-- [ ] **ELEM-05**: MCP server provides a page inspection tool that returns a structured DOM summary for Claude to reason about selectors
+- [x] **ELEM-05**: MCP server provides a page inspection tool that returns a structured DOM summary for Claude to reason about selectors
 
 ### Viewport & Display
 
@@ -118,10 +118,10 @@
 | QUAL-04 | Phase 1 | Complete |
 | QUAL-05 | Phase 1 | Complete |
 | ELEM-01 | Phase 2 | Complete |
-| ELEM-02 | Phase 2 | Pending |
+| ELEM-02 | Phase 2 | Complete |
 | ELEM-03 | Phase 2 | Complete |
 | ELEM-04 | Phase 2 | Complete |
-| ELEM-05 | Phase 2 | Pending |
+| ELEM-05 | Phase 2 | Complete |
 | PREP-01 | Phase 2 | Complete |
 | PREP-02 | Phase 2 | Complete |
 | PREP-03 | Phase 2 | Complete |
