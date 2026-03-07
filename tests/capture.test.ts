@@ -223,20 +223,36 @@ describe("element capture", () => {
   });
 
   test("omitBackground produces PNG with transparency", async () => {
+    // Use padding + remove body background via injectCSS so omitBackground makes padding area transparent
     const dir1 = await freshTmpDir();
     const opaqueResult = await captureScreenshot(
-      makeParams({ url: ELEMENT_PAGE, selector: "#target-box", format: "png", outputDir: dir1 })
+      makeParams({
+        url: ELEMENT_PAGE,
+        selector: "#target-box",
+        padding: 10,
+        format: "png",
+        injectCSS: "body { background: transparent !important; }",
+        outputDir: dir1,
+      })
     );
     const dir2 = await freshTmpDir();
     const transparentResult = await captureScreenshot(
-      makeParams({ url: ELEMENT_PAGE, selector: "#target-box", format: "png", omitBackground: true, outputDir: dir2 })
+      makeParams({
+        url: ELEMENT_PAGE,
+        selector: "#target-box",
+        padding: 10,
+        format: "png",
+        omitBackground: true,
+        injectCSS: "body { background: transparent !important; }",
+        outputDir: dir2,
+      })
     );
     // Both should be valid PNGs
     expect(transparentResult.buffer[0]).toBe(0x89);
     expect(transparentResult.buffer[1]).toBe(0x50);
     expect(transparentResult.buffer[2]).toBe(0x4e);
     expect(transparentResult.buffer[3]).toBe(0x47);
-    // Buffers should differ (transparency vs opaque)
+    // Buffers should differ (transparent padding area vs default white padding area)
     expect(transparentResult.buffer.equals(opaqueResult.buffer)).toBe(false);
   });
 

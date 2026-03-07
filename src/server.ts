@@ -38,6 +38,12 @@ export function createServer(): McpServer {
         .default("networkidle"),
       autoScroll: z.boolean().default(true),
       timeout: z.number().positive().default(30000),
+      selector: z.string().optional().describe("CSS selector to capture a specific element"),
+      padding: z.number().int().min(0).default(0).describe("Pixels of padding around element"),
+      omitBackground: z.boolean().default(false).describe("Transparent background (PNG only)"),
+      injectCSS: z.string().optional().describe("Custom CSS to inject before capture"),
+      injectJS: z.string().optional().describe("Custom JavaScript to execute before capture"),
+      hideSelectors: z.array(z.string()).optional().describe("CSS selectors of elements to hide before capture"),
     },
     async (params) => {
       const captureParams: CaptureParams = {
@@ -53,6 +59,12 @@ export function createServer(): McpServer {
         wait: params.wait,
         autoScroll: params.autoScroll,
         timeout: params.timeout,
+        selector: params.selector,
+        padding: params.padding,
+        omitBackground: params.omitBackground,
+        injectCSS: params.injectCSS,
+        injectJS: params.injectJS,
+        hideSelectors: params.hideSelectors,
       };
 
       const result = await captureScreenshot(captureParams);

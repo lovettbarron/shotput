@@ -7,6 +7,25 @@ import { resolveOutputPath, ensureOutputDir } from "./output.js";
 import type { CaptureParams, CaptureResult, WaitStrategy } from "./types.js";
 
 /**
+ * Prepare the page before capture: hide elements, inject CSS, execute JS.
+ * Order is deterministic: (1) hide elements, (2) inject CSS, (3) execute JS.
+ */
+async function preparePage(page: Page, params: CaptureParams): Promise<void> {
+  if (params.hideSelectors?.length) {
+    const css = params.hideSelectors
+      .map((sel) => `${sel} { display: none !important; }`)
+      .join("\n");
+    await page.addStyleTag({ content: css });
+  }
+  if (params.injectCSS) {
+    await page.addStyleTag({ content: params.injectCSS });
+  }
+  if (params.injectJS) {
+    await page.evaluate(params.injectJS);
+  }
+}
+
+/**
  * Core capture pipeline: navigates to URL, optionally scrolls,
  * takes screenshot, saves to disk, returns result.
  */
@@ -14,7 +33,7 @@ export async function captureScreenshot(params: CaptureParams): Promise<CaptureR
   const {
     url,
     fullPage,
-    format,
+    format: requestedFormat,
     quality,
     width,
     height,
@@ -24,6 +43,9 @@ export async function captureScreenshot(params: CaptureParams): Promise<CaptureR
     wait,
     autoScroll: shouldScroll,
     timeout,
+    selector,
+    padding = 0,
+    omitBackground = false,
   } = params;
 
   const browser = await getBrowser();
@@ -33,6 +55,13 @@ export async function captureScreenshot(params: CaptureParams): Promise<CaptureR
   });
 
   let warning: string | undefined;
+  let format = requestedFormat;
+
+  // Handle JPEG + omitBackground incompatibility
+  if (omitBackground && format === "jpeg") {
+    warning = "omitBackground requires PNG format; switching from JPEG to PNG";
+    format = "png";
+  }
 
   try {
     const page = await context.newPage();
@@ -46,19 +75,73 @@ export async function captureScreenshot(params: CaptureParams): Promise<CaptureR
       }
     });
 
-    // Auto-scroll to trigger lazy content if requested
-    if (fullPage && shouldScroll) {
+    // Auto-scroll to trigger lazy content if requested (only for non-element captures)
+    if (!selector && fullPage && shouldScroll) {
       await autoScroll(page);
     }
 
-    // Take screenshot
-    const buffer = Buffer.from(
-      await page.screenshot({
-        fullPage,
-        type: format,
-        quality: format === "jpeg" ? quality : undefined,
-      })
-    );
+    // Run page preparation pipeline
+    await preparePage(page, params);
+
+    let buffer: Buffer;
+    let resultWidth = width;
+    let resultHeight = height;
+
+    if (selector) {
+      // Element capture
+      const locator = page.locator(selector);
+      try {
+        await locator.waitFor({ state: "visible", timeout: 5000 });
+      } catch {
+        throw new Error(`Element not found or not visible: ${selector}`);
+      }
+
+      if (padding === 0) {
+        buffer = Buffer.from(
+          await locator.screenshot({
+            type: format,
+            quality: format === "jpeg" ? quality : undefined,
+            omitBackground,
+          })
+        );
+        const box = await locator.boundingBox();
+        if (box) {
+          resultWidth = Math.round(box.width);
+          resultHeight = Math.round(box.height);
+        }
+      } else {
+        // With padding: use bounding box + clip
+        const box = await locator.boundingBox();
+        if (!box) {
+          throw new Error(`Element not visible: ${selector}`);
+        }
+        const clip = {
+          x: Math.max(0, box.x - padding),
+          y: Math.max(0, box.y - padding),
+          width: box.width + padding * 2,
+          height: box.height + padding * 2,
+        };
+        buffer = Buffer.from(
+          await page.screenshot({
+            type: format,
+            quality: format === "jpeg" ? quality : undefined,
+            omitBackground,
+            clip,
+          })
+        );
+        resultWidth = Math.round(clip.width);
+        resultHeight = Math.round(clip.height);
+      }
+    } else {
+      // Full page / viewport capture (existing behavior)
+      buffer = Buffer.from(
+        await page.screenshot({
+          fullPage,
+          type: format,
+          quality: format === "jpeg" ? quality : undefined,
+        })
+      );
+    }
 
     // Resolve and ensure output path
     const filePath = resolveOutputPath(outputDir, filename, url, format);
@@ -69,8 +152,8 @@ export async function captureScreenshot(params: CaptureParams): Promise<CaptureR
       filePath,
       buffer,
       format,
-      width,
-      height,
+      width: resultWidth,
+      height: resultHeight,
       warning,
     };
   } finally {
