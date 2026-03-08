@@ -226,5 +226,71 @@ export function createServer(): McpServer {
     }
   );
 
+  server.tool(
+    "shotput_login",
+    "Open a visible browser window for manual login. Log in to the website, then close the browser window when done. The session will be saved and can be used with shotput_capture's sessionName parameter. Requires a display (won't work on headless servers).",
+    {
+      url: z.string().url().describe("URL of the login page to open"),
+      sessionName: z
+        .string()
+        .default("default")
+        .describe("Label for this session (use with shotput_capture's sessionName)"),
+    },
+    async (params) => {
+      try {
+        await getSessionManager().interactiveLogin(params.url, params.sessionName);
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: `Login session '${params.sessionName}' captured successfully. Use sessionName: '${params.sessionName}' in shotput_capture to access authenticated pages.`,
+            },
+          ],
+        };
+      } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : String(error);
+        if (message.includes("display") || message.includes("XServer")) {
+          return {
+            content: [
+              {
+                type: "text" as const,
+                text: "Interactive login requires a display. This won't work on headless servers. Try running on a machine with a desktop environment.",
+              },
+            ],
+            isError: true,
+          };
+        }
+        throw error;
+      }
+    }
+  );
+
+  server.tool(
+    "shotput_list_sessions",
+    "List all stored authentication sessions.",
+    {},
+    async () => {
+      const sessions = getSessionManager().listSessions();
+      if (sessions.length === 0) {
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: "No active sessions.",
+            },
+          ],
+        };
+      }
+      return {
+        content: [
+          {
+            type: "text" as const,
+            text: `Active sessions:\n${sessions.map((s) => `  - ${s}`).join("\n")}`,
+          },
+        ],
+      };
+    }
+  );
+
   return server;
 }
