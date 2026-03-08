@@ -19,6 +19,41 @@ export interface CaptureParams {
   injectCSS?: string;
   injectJS?: string;
   hideSelectors?: string[];
+  sessionName?: string;
+}
+
+export type SameSitePolicy = "Strict" | "Lax" | "None";
+
+export interface CookieParam {
+  name: string;
+  value: string;
+  domain: string;
+  path: string;
+  expires: number;
+  httpOnly: boolean;
+  secure: boolean;
+  sameSite: SameSitePolicy;
+}
+
+export interface CookieInput {
+  name: string;
+  value: string;
+  domain: string;
+  path?: string;
+  expires?: number;
+  httpOnly?: boolean;
+  secure?: boolean;
+  sameSite?: SameSitePolicy;
+}
+
+export interface OriginState {
+  origin: string;
+  localStorage: Array<{ name: string; value: string }>;
+}
+
+export interface StorageState {
+  cookies: CookieParam[];
+  origins: OriginState[];
 }
 
 export interface CaptureResult {

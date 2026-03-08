@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Auth Test Page</title>
+</head>
+<body>
+  <h1>Authentication Test</h1>
+  <div id="auth-status">Authenticated: false</div>
+  <script>
+    const cookies = document.cookie.split(";").map(c => c.trim());
+    const hasSession = cookies.some(c => c.startsWith("session_token="));
+    document.getElementById("auth-status").textContent =
+      "Authenticated: " + hasSession;
+  </script>
+</body>
+</html>
