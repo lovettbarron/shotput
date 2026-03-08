@@ -37,7 +37,7 @@
 
 ### Authentication
 
-- [ ] **AUTH-01**: User can open a visible (headed) browser window, log in manually, and have the session transferred to headless mode for subsequent captures
+- [x] **AUTH-01**: User can open a visible (headed) browser window, log in manually, and have the session transferred to headless mode for subsequent captures
 - [x] **AUTH-02**: User can inject cookies or session tokens programmatically for authenticated page captures
 - [x] **AUTH-03**: Sessions from interactive login persist across multiple captures within the same session
 - [x] **AUTH-04**: No user credentials are stored or logged by the tool — only session state (cookies/storage) is captured
@@ -125,7 +125,7 @@
 | PREP-01 | Phase 2 | Complete |
 | PREP-02 | Phase 2 | Complete |
 | PREP-03 | Phase 2 | Complete |
-| AUTH-01 | Phase 3 | Pending |
+| AUTH-01 | Phase 3 | Complete |
 | AUTH-02 | Phase 3 | Complete |
 | AUTH-03 | Phase 3 | Complete |
 | AUTH-04 | Phase 3 | Complete |
