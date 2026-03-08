@@ -4,6 +4,7 @@ import type { Page } from "playwright";
 import { getBrowser } from "./browser.js";
 import { autoScroll } from "./scroll.js";
 import { resolveOutputPath, ensureOutputDir } from "./output.js";
+import { getSessionManager } from "./auth.js";
 import type { CaptureParams, CaptureResult, WaitStrategy } from "./types.js";
 
 /**
@@ -49,12 +50,25 @@ export async function captureScreenshot(params: CaptureParams): Promise<CaptureR
   } = params;
 
   const browser = await getBrowser();
+
+  // Resolve session storage state if sessionName provided
+  let storageState: import("./types.js").StorageState | undefined;
+  let warning: string | undefined;
+
+  if (params.sessionName) {
+    const session = getSessionManager().getSession(params.sessionName);
+    if (session) {
+      storageState = session;
+    } else {
+      warning = `Session '${params.sessionName}' not found, capturing without authentication`;
+    }
+  }
+
   const context = await browser.newContext({
     viewport: { width, height },
     deviceScaleFactor: scale,
+    ...(storageState ? { storageState } : {}),
   });
-
-  let warning: string | undefined;
   let format = requestedFormat;
 
   // Handle JPEG + omitBackground incompatibility

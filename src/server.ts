@@ -3,6 +3,7 @@ import { z } from "zod";
 import { captureScreenshot } from "./capture.js";
 import { inspectPage } from "./inspect.js";
 import { registerCleanup } from "./browser.js";
+import { getSessionManager } from "./auth.js";
 import type { CaptureParams } from "./types.js";
 
 const INLINE_IMAGE_LIMIT = 750 * 1024; // 750KB
@@ -45,6 +46,7 @@ export function createServer(): McpServer {
       injectCSS: z.string().optional().describe("Custom CSS to inject before capture"),
       injectJS: z.string().optional().describe("Custom JavaScript to execute before capture"),
       hideSelectors: z.array(z.string()).optional().describe("CSS selectors of elements to hide before capture"),
+      sessionName: z.string().optional().describe("Name of a stored auth session to use for this capture"),
     },
     async (params) => {
       const captureParams: CaptureParams = {
@@ -66,6 +68,7 @@ export function createServer(): McpServer {
         injectCSS: params.injectCSS,
         injectJS: params.injectJS,
         hideSelectors: params.hideSelectors,
+        sessionName: params.sessionName,
       };
 
       const result = await captureScreenshot(captureParams);
@@ -150,6 +153,76 @@ export function createServer(): McpServer {
       }
 
       return { content };
+    }
+  );
+
+  server.tool(
+    "shotput_set_cookies",
+    "Inject cookies for authenticated page captures. Stores cookies as a named session that can be referenced by shotput_capture's sessionName parameter.",
+    {
+      sessionName: z.string().describe("Label for this session (use with shotput_capture's sessionName)"),
+      cookies: z
+        .array(
+          z.object({
+            name: z.string(),
+            value: z.string(),
+            domain: z.string(),
+            path: z.string().default("/"),
+            httpOnly: z.boolean().default(false),
+            secure: z.boolean().default(false),
+            sameSite: z.enum(["Strict", "Lax", "None"]).default("None"),
+            expires: z.number().default(-1),
+          })
+        )
+        .min(1),
+    },
+    async (params) => {
+      getSessionManager().createSessionFromCookies(
+        params.sessionName,
+        params.cookies
+      );
+
+      return {
+        content: [
+          {
+            type: "text" as const,
+            text: `Session '${params.sessionName}' stored with ${params.cookies.length} cookie(s). Use sessionName: '${params.sessionName}' in shotput_capture.`,
+          },
+        ],
+      };
+    }
+  );
+
+  server.tool(
+    "shotput_clear_sessions",
+    "Clear stored authentication sessions. Clears a specific session by name, or all sessions if no name provided.",
+    {
+      sessionName: z.string().optional(),
+    },
+    async (params) => {
+      const mgr = getSessionManager();
+      if (params.sessionName) {
+        mgr.clearSession(params.sessionName);
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: `Session '${params.sessionName}' cleared.`,
+            },
+          ],
+        };
+      } else {
+        const count = mgr.listSessions().length;
+        mgr.clearAllSessions();
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: `All sessions cleared (${count} removed).`,
+            },
+          ],
+        };
+      }
     }
   );
 

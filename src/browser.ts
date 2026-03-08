@@ -1,4 +1,5 @@
 import { chromium, type Browser } from "playwright";
+import { getSessionManager } from "./auth.js";
 
 let browser: Browser | null = null;
 
@@ -18,6 +19,7 @@ export async function getBrowser(): Promise<Browser> {
  * Close the browser if connected and reset the singleton.
  */
 export async function closeBrowser(): Promise<void> {
+  getSessionManager().clearAllSessions();
   if (browser) {
     try {
       if (browser.isConnected()) {
