@@ -61,11 +61,11 @@ Plans:
   2. User can inject cookies or session tokens programmatically and capture authenticated content without manual login
   3. Authenticated sessions persist across multiple captures within the same MCP server session
   4. No user credentials (passwords, tokens) are stored or logged by the tool -- only browser session state is captured
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md — Session manager, cookie injection, capture pipeline integration
+- [ ] 03-02-PLAN.md — Interactive login flow with headed browser
 
 ### Phase 4: Skill Layer + Display Polish
 **Goal**: Claude Code users get a natural language interface via SKILL.md, with display mode controls, device presets, and organized output with batch capture support
